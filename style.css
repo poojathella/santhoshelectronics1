@@ -1,0 +1,108 @@
+@media (max-width: 768px) {
+
+    .section {
+        padding: 70px 18px;
+    }
+
+    .section-title {
+        margin-bottom: 2.5rem;
+        font-size: 2rem;
+    }
+
+    .nav-container {
+        padding: 0 15px;
+    }
+
+    .hamburger { display: flex; }
+
+    .nav-menu {
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 80px);
+        background: var(--primary-blue);
+        flex-direction: column;
+        align-items: center;
+        padding-top: 2rem;
+        gap: 1.5rem;
+        transition: 0.3s;
+    }
+
+    .nav-menu.active { left: 0; }
+
+    #home {
+        height: auto;
+        padding: 120px 20px 70px;
+    }
+
+    .hero-logo {
+        width: 110px;
+        height: 110px;
+    }
+
+    h1 {
+        font-size: 2.2rem;
+        line-height: 1.2;
+    }
+
+    .tagline {
+        font-size: 1rem;
+    }
+
+    .rating {
+        font-size: 1rem;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        width: 100%;
+        gap: 0.8rem;
+    }
+
+    .btn {
+        width: 100%;
+        max-width: 280px;
+        padding: 14px;
+        font-size: 1rem;
+    }
+
+    .service-grid,
+    .features-grid,
+    .products-grid,
+    .reviews-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .service-card,
+    .feature-card,
+    .product-card,
+    .review-card {
+        padding: 1.8rem;
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    #map {
+        height: 250px;
+    }
+
+    .fab {
+        width: 55px;
+        height: 55px;
+        font-size: 1.3rem;
+        right: 15px;
+    }
+
+    .fab-call {
+        bottom: 90px;
+    }
+
+    .fab-whatsapp {
+        bottom: 20px;
+    }
+}
