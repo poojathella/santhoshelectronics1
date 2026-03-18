@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TV Repair Karimnagar | Santhosh Electronics</title>
+    <meta name="description" content="Best TV Repair Service in Karimnagar. LED, LCD, Smart TV Repair & Home Service. 29 Years Trusted Service.">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    
+    <style>
+        :root {
+            --primary-blue: #1e40af;
+            --secondary-blue: #3b82f6;
+            --accent-gold: #f59e0b;
+            --shadow-lg: 0 20px 60px rgba(0,0,0,0.3);
+            --shadow-sm: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6; color: #333;
+            overflow-x: hidden; scroll-behavior: smooth;
+            scroll-padding-top: 100px;
+        }
+
+        #loader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 9999; transition: opacity 0.5s ease;
+        }
+        #loader.hidden { opacity: 0; pointer-events: none; }
+        .spinner {
+            width: 60px; height: 60px; border: 4px solid rgba(255,255,255,0.3);
+            border-top: 4px solid white; border-radius: 50%;
+            animation: spin 1s linear infinite; margin-bottom: 20px;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        .navbar {
+            position: fixed; top: 0; width: 100%;
+            background: rgba(30, 64, 175, 0.95); backdrop-filter: blur(20px);
+            z-index: 1000; padding: 1rem 0;
+        }
+        .nav-container {
+            max-width: 1200px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center; padding: 0 20px;
+        }
+        .logo-nav { width: 50px; height: 50px; border-radius: 12px; object-fit: cover; }
+        .nav-menu { display: flex; list-style: none; gap: 2rem; }
+        .nav-link {
+            color: white; text-decoration: none; font-weight: 500;
+            transition: color 0.3s; padding: 0.5rem 0;
+        }
+        .nav-link:hover, .nav-link.active { color: var(--accent-gold); }
+        .hamburger {
+            display: none; flex-direction: column; cursor: pointer; gap: 4px;
+        }
+        .hamburger span { width: 25px; height: 3px; background: white; transition: 0.3s; }
+
+        #home {
+            height: 100vh; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.4)),
+            linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; color: white; padding: 20px;
+        }
+        .hero-logo {
+            width: 160px; height: 160px; border-radius: 50%; margin-bottom: 2rem;
+            box-shadow: var(--shadow-lg); object-fit: cover;
+        }
+        .hero h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 700; margin-bottom: 1rem; }
+        .tagline { font-size: clamp(1.1rem, 3vw, 1.8rem); margin-bottom: 2rem; opacity: 0.95; }
+        .rating {
+            font-size: 1.3rem; margin-bottom: 2.5rem;
+            display: flex; align-items: center; gap: 0.5rem; justify-content: center;
+        }
+        .hero-buttons { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; max-width: 600px; }
+        .btn {
+            padding: 16px 32px; border: none; border-radius: 50px;
+            font-size: 1.1rem; font-weight: 600; text-decoration: none;
+            transition: all 0.3s; box-shadow: var(--shadow-sm); display: inline-block;
+            min-width: 180px; text-align: center;
+        }
+        .btn-primary { background: white; color: var(--primary-blue); }
+        .btn-secondary { background: var(--accent-gold); color: white; }
+        .btn:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+
+        .section { padding: 100px 20px; max-width: 1200px; margin: 0 auto; }
+        .section-title {
+            text-align: center; font-size: clamp(2rem, 5vw, 3.2rem);
+            margin-bottom: 4rem; color: var(--primary-blue); font-weight: 700;
+        }
+
+        #repairs { background: #f8fafc; }
+        .service-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem; margin-top: 3rem;
+        }
+        .service-card {
+            background: white; border-radius: 24px; padding: 2.5rem;
+            box-shadow: var(--shadow-sm); transition: all 0.4s;
+            text-align: center; border: 1px solid #e2e8f0;
+        }
+        .service-card:hover { transform: translateY(-12px); box-shadow: var(--shadow-lg); }
+        .service-icon { font-size: 4rem; color: var(--primary-blue); margin-bottom: 1.5rem; }
+
+        #services .features-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;
+        }
+        .feature-card {
+            background: linear-gradient(135deg, white, #f1f5f9);
+            border-radius: 20px; padding: 2.5rem 2rem; text-align: center;
+            box-shadow: var(--shadow-sm); border: 1px solid rgba(255,255,255,0.5);
+            transition: all 0.3s;
+        }
+        .feature-card:hover { transform: scale(1.02); }
+
+        #sales { background: linear-gradient(135deg, #f8fafc, #e2e8f0); }
+        .products-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem;
+        }
+        .product-card {
+            background: white; border-radius: 20px; overflow: hidden;
+            box-shadow: var(--shadow-sm); transition: all 0.4s;
+        }
+        .product-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+        .product-img { width: 100%; height: 220px; object-fit: cover; }
+        .product-info { padding: 1.5rem; text-align: center; }
+
+        .reviews-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem; margin-top: 3rem;
+        }
+        .review-card {
+            background: white; border-radius: 20px; padding: 2rem;
+            box-shadow: var(--shadow-sm); text-align: center;
+        }
+        .stars { color: var(--accent-gold); font-size: 1.5rem; margin-bottom: 1rem; }
+
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group input, .form-group textarea {
+            width: 100%; padding: 1.2rem; border: 2px solid #e5e7eb;
+            border-radius: 12px; font-size: 1rem; transition: border-color 0.3s; background: white;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none; border-color: var(--primary-blue);
+        }
+        #map {
+            height: 350px; width: 100%; border-radius: 20px;
+            box-shadow: var(--shadow-lg); border: none; margin-top: 1.5rem;
+        }
+
+        .fab {
+            position: fixed; width: 65px; height: 65px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.6rem; color: white; box-shadow: var(--shadow-lg);
+            transition: all 0.3s; text-decoration: none; z-index: 1000;
+            bottom: 25px; right: 25px;
+        }
+        .fab-call { background: #10b981; bottom: 110px; }
+        .fab-whatsapp { background: #25d366; }
+        .fab:hover { transform: scale(1.1); }
+
+        .footer {
+            background: var(--primary-blue); color: white;
+            text-align: center; padding: 4rem 20px 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .hamburger { display: flex; }
+            .nav-menu {
+                position: fixed; top: 80px; left: -100%; width: 100%;
+                height: calc(100vh - 80px); background: var(--primary-blue);
+                flex-direction: column; justify-content: flex-start;
+                align-items: center; padding-top: 3rem; transition: 0.3s;
+            }
+            .nav-menu.active { left: 0; }
+            .hero-buttons { flex-direction: column; align-items: center; }
+            .btn { min-width: 100%; max-width: 100%; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .section { padding: 80px 15px; }
+        }
+
+        .fade-in {
+            opacity: 0; transform: translateY(40px); transition: all 0.8s ease;
+        }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body>
+    <!-- LOADER -->
+    <div id="loader">
+        <div class="spinner"></div>
+        <p style="color: white; font-weight: 500;">Loading...</p>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#home"><img src="logo.jpeg" alt="Santhosh Electronics" class="logo-nav"></a>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#home" class="nav-link active">🏠 Home</a></li>
+                <li><a href="#repairs" class="nav-link">🔧 Repairs</a></li>
+                <li><a href="#services" class="nav-link">📋 Services</a></li>
+                <li><a href="#sales" class="nav-link">🛒 Sales</a></li>
+                <li><a href="#reviews" class="nav-link">⭐ Reviews</a></li>
+                <li><a href="#contact" class="nav-link">📞 Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HOME -->
+    <section id="home" class="fade-in">
+        <img src="logo.jpeg" alt="Santhosh Electronics" class="hero-logo">
+        <h1>Santhosh Electronics</h1>
+        <p class="tagline">29 Years of Trusted TV Repair Services in Karimnagar</p>
+        <div class="rating">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            4.9 (189 Reviews)
+        </div>
+        <div class="hero-buttons">
+            <a href="tel:+919885254018" class="btn btn-primary">📞 Call Now</a>
+            <a href="https://wa.me/919885254018" class="btn btn-secondary">💬 WhatsApp</a>
+        </div>
+        <p style="margin-top: 2rem; opacity: 0.9; font-size: 1.1rem;">
+            Door: 2-10-1351, Opp St. Johns School, Vidyanagar, Karimnagar
+        </p>
+    </section>
+
+    <!-- REPAIRS -->
+    <section id="repairs" class="section fade-in">
+        <h1 class="section-title">Expert TV Repairs</h1>
+        <div class="service-grid">
+            <div class="service-card">
+                <div class="service-icon">📺</div>
+                <h3>LED TV Repair</h3>
+                <p>Panel replacement, backlight repair, power issues. Same day service.</p>
+                <a href="#contact" class="btn btn-primary">Book Now</a>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">📺</div>
+                <h3>LCD TV Repair</h3>
+                <p>Display problems, inverter boards, capacitor replacement.</p>
+                <a href="#contact" class="btn btn-primary">Book Now</a>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🧠</div>
+                <h3>Smart TV Repair</h3>
+                <p>WiFi issues, software updates, app problems, motherboard repair.</p>
+                <a href="#contact" class="btn btn-primary">Book Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="section fade-in">
+        <h1 class="section-title">Why Choose Us?</h1>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-bolt" style="font-size: 3rem; color: var(--primary-blue); margin-bottom: 1rem;"></i>
+                <h3>⚡ Fast Service</h3>
+                <p>Most repairs completed within 24 hours. Same day service available.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-rupee-sign" style="font-size: 3rem; color: var(--accent-gold); margin-bottom: 1rem;"></i>
+                <h3>💰 Affordable</h3>
+                <p>Transparent pricing. No hidden charges. Best rates in Karimnagar.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-home" style="font-size: 3rem; color: var(--secondary-blue); margin-bottom: 1rem;"></i>
+                <h3>🏠 Home Service</h3>
+                <p>Free pickup & delivery within Karimnagar. We come to you.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-tools" style="font-size: 3rem; color: var(--primary-blue); margin-bottom: 1rem;"></i>
+                <h3>🔧 Genuine Parts</h3>
+                <p>Original spare parts with 6 months warranty on all repairs.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SALES -->
+    <section id="sales" class="section fade-in">
+        <h1 class="section-title">TV Sales & Accessories</h1>
+        <div class="products-grid">
+            <div class="product-card">
+                <img src="tv1.jpg" alt="32 inch Smart TV" class="product-img">
+                <div class="product-info">
+                    <h3>32" Smart LED TV</h3>
+                    <p>Full HD | Android | WiFi</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="tv2.jpg" alt="43 inch 4K TV" class="product-img">
+                <div class="product-info">
+                    <h3>43" 4K Smart TV</h3>
+                    <p>4K UHD | Smart Features</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- REVIEWS -->
+    <section id="reviews" class="section fade-in" style="background: #f8fafc;">
+        <h1 class="section-title">Customer Reviews</h1>
+        <div class="reviews-grid">
+            <div class="review-card">
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p>"Fixed my Samsung Smart TV in 3 hours! Best service in Karimnagar."</p>
+                <strong>- Ravi Kumar, Vidyanagar</strong>
+            </div>
+            <div class="review-card">
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p>"Very affordable rates. Genuine parts. Highly recommended!"</p>
+                <strong>- Priya Sharma</strong>
+            </div>
+            <div class="review-card">
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p>"Home service was excellent. Polite technician. 5 stars!"</p>
+                <strong>- Mohan Reddy</strong>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section fade-in">
+        <h1 class="section-title">Get In Touch</h1>
+        <div class="contact-grid">
+            <div>
+                <div style="background: rgba(255,255,255,0.95); border-radius: 24px; padding: 2.5rem; box-shadow: var(--shadow-sm); border: 1px solid rgba(255,255,255,0.3);">
+                    <h3>📍 Visit Us</h3>
+                    <p><strong>Door: 2-10-1351</strong><br>
+                    Opposite St. Johns School<br>
+                    Bhagyanagar, Vidyanagar<br>
+                    Karimnagar, Telangana, India</p>
+                    <p><strong>Hours:</strong> Mon–Sat: 9AM–8PM | Sunday: On Call</p>
+                    <div style="margin-top: 2rem;">
+                        <a href="tel:+919885254018" class="btn btn-primary">📞 Call</a>
+                        <a href="https://wa.me/919885254018" class="btn btn-secondary">💬 WhatsApp</a>
+                        <a href="https://jsdl.in/DT-99EEE6E2MAE" target="_blank" class="btn btn-primary">⭐ JustDial</a>
+                    </div>
+                </div>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3815.123456789!2d79.000000!3d18.439999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTHCsDI2JzI0LjQiTiA3OMKwMDAnMDAuMCJF!5e0!3m2!1sen!2sin!4v1730000000000" 
+                    id="map" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            <form id="contactForm" style="background: rgba(255,255,255,0.95); padding: 2.5rem; border-radius: 24px; box-shadow: var(--shadow-sm); border: 1px solid rgba(255,255,255,0.3);">
+                <h3>📩 Quick Enquiry</h3>
+                <div class="form-group">
+                    <input type="text" name="name" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" name="phone" placeholder="Phone Number" required>
+                </div>
+                <div class="form-group">
+                    <textarea name="problem" rows="5" placeholder="Describe TV Problem..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FABs -->
+    <a href="tel:+919885254018" class="fab fab-call" title="Call"><i class="fas fa-phone"></i></a>
+    <a href="https://wa.me/919885254018" class="fab fab-whatsapp" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <h3><i class="fas fa-tv"></i> Santhosh Electronics</h3>
+            <p>29 Years of Trusted Service | Karimnagar's #1 TV Repair</p>
+            <p>Door: 2-10-1351, Opp St. Johns School, Vidyanagar, Karimnagar</p>
+            <div style="margin: 2rem 0;">
+                <a href="#home" style="color: white; margin: 0 1.5rem; font-size: 1.2rem;"><i class="fas fa-home"></i></a>
+                <a href="https://jsdl.in/DT-99EEE6E2MAE" target="_blank" style="color: white; margin: 0 1.5rem; font-size: 1.2rem;"><i class="fas fa-star"></i> JustDial</a>
+            </div>
+            <p style="opacity: 0.8;">© 2026 Santhosh Electronics</p>
+        </div>
+    </footer>
+
+    <script>
+        window.addEventListener('load', () => {
+            setTimeout(() => document.getElementById('loader').classList.add('hidden'), 2000);
+        });
+
+        document.getElementById('hamburger').onclick = () => {
+            document.getElementById('nav-menu').classList.toggle('active');
+        };
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        window.onscroll = () => {
+            document.querySelector('.navbar').style.background = 
+                window.scrollY > 50 ? 'rgba(30, 64, 175, 0.98)' : 'rgba(30, 64, 175, 0.95)';
+        };
+
+        emailjs.init('YOUR_PUBLIC_KEY');
+        document.getElementById('contactForm').onsubmit = (e) => {
+            e.preventDefault();
+            emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', e.target)
+            .then(() => {
+                alert('✅ Message sent! We\'ll call you soon.');
+                e.target.reset();
+            }, () => {
+                alert('❌ Please try calling/WhatsApp instead.');
+            });
+        };
+    </script>
+</body>
+</html>
